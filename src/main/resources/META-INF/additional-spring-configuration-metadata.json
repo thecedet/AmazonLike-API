@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "spring.tomcat.max-wait",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.tomcat.max-wait'"
+  },
+  {
+    "name": "spring.tomcat.max-active",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.tomcat.max-active'"
+  },
+  {
+    "name": "spring.tomcat.max-idle",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.tomcat.max-idle'"
+  },
+  {
+    "name": "spring.tomcat.min-idle",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.tomcat.min-idle'"
+  },
+  {
+    "name": "security.jwt.token.secret-key",
+    "type": "java.lang.String",
+    "description": "A description for 'security.jwt.token.secret-key'"
+  },
+  {
+    "name": "security.jwt.token.expire-length",
+    "type": "java.lang.String",
+    "description": "A description for 'security.jwt.token.expire-length'"
+  }
+]}
