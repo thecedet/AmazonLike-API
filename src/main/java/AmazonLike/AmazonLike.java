@@ -36,7 +36,7 @@ public class AmazonLike implements CommandLineRunner {
     admin.setUsername("admin");
     admin.setPassword("admin");
     admin.setEmail("admin@email.com");
-    admin.setAppUserRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_ADMIN)));
+    admin.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_ADMIN)));
 
     userService.signup(admin);
 
@@ -44,7 +44,7 @@ public class AmazonLike implements CommandLineRunner {
     client.setUsername("client");
     client.setPassword("client");
     client.setEmail("client@email.com");
-    client.setAppUserRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_CLIENT)));
+    client.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_CLIENT)));
 
     userService.signup(client);
   }

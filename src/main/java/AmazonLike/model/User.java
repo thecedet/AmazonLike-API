@@ -34,6 +34,9 @@ public class User {
   private String password;
 
   @ElementCollection(fetch = FetchType.EAGER)
-  List<Role> appUserRoles;
+  List<Role> roles;
+
+  @ElementCollection(fetch = FetchType.LAZY)
+  List<Product> cart;
 
 }

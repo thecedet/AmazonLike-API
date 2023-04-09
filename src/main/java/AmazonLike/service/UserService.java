@@ -28,7 +28,7 @@ public class UserService {
   public String signin(String username, String password) {
     try {
       authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-      return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getAppUserRoles());
+      return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
     } catch (AuthenticationException e) {
       throw new CustomException("Impossible de se connecter (mauvais login/password)", HttpStatus.UNAUTHORIZED);
     }
@@ -38,7 +38,7 @@ public class UserService {
     if (!userRepository.existsByUsername(appUser.getUsername())) {
       appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
       userRepository.save(appUser);
-      return jwtTokenProvider.createToken(appUser.getUsername(), appUser.getAppUserRoles());
+      return jwtTokenProvider.createToken(appUser.getUsername(), appUser.getRoles());
     } else {
       throw new CustomException("L'utilisateur existe déjà", HttpStatus.CONFLICT);
     }
@@ -61,7 +61,7 @@ public class UserService {
   }
 
   public String refresh(String username) {
-    return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getAppUserRoles());
+    return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
   }
 
 }
