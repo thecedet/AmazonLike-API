@@ -1,5 +1,7 @@
 package AmazonLike.service;
 
+import java.util.Arrays;
+
 import javax.servlet.http.HttpServletRequest;
 
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import AmazonLike.exception.CustomException;
+import AmazonLike.model.Role;
 import AmazonLike.model.User;
 import AmazonLike.repository.UserRepository;
 import AmazonLike.security.JwtTokenProvider;
@@ -28,6 +31,16 @@ public class UserService {
   public String signin(String username, String password) {
     if(username == null) throw new CustomException("Paramètre `username` manquant", HttpStatus.BAD_REQUEST);
     if(password == null) throw new CustomException("Paramètre `password` manquant", HttpStatus.BAD_REQUEST);
+
+    try {
+      this.search(username);
+    }catch (CustomException e) {
+      User user = userRepository.findByEmail(username);
+      if(user == null) {
+        throw new CustomException("Impossible de se connecter (mauvais login/password)", HttpStatus.UNAUTHORIZED);
+      }else username = user.getUsername();
+    }
+
     try {
       authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
       return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
@@ -36,14 +49,15 @@ public class UserService {
     }
   }
 
-  public String signup(User appUser) {
-    if (!userRepository.existsByUsername(appUser.getUsername())) {
-      appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
-      userRepository.save(appUser);
-      return jwtTokenProvider.createToken(appUser.getUsername(), appUser.getRoles());
-    } else {
-      throw new CustomException("L'utilisateur existe déjà", HttpStatus.CONFLICT);
-    }
+  public String signup(User user) {
+    if(user.getRoles() == null) user.setRoles(Arrays.asList(Role.ROLE_CLIENT));
+    if(userRepository.existsByUsername(user.getUsername())) throw new CustomException("L'utilisateur existe déjà", HttpStatus.CONFLICT);
+    if(userRepository.existsByEmail(user.getEmail())) throw new CustomException("L'email existe déjà", HttpStatus.CONFLICT);
+    
+    user.setPassword(passwordEncoder.encode(user.getPassword()));
+    userRepository.save(user);
+    return jwtTokenProvider.createToken(user.getUsername(), user.getRoles());
+    
   }
 
   public void delete(String username) {
@@ -51,11 +65,11 @@ public class UserService {
   }
 
   public User search(String username) {
-    User appUser = userRepository.findByUsername(username);
-    if(appUser == null) {
+    User user = userRepository.findByUsername(username);
+    if(user == null) {
       throw new CustomException("Utilisateur introuvable", HttpStatus.NOT_FOUND);
     }
-    return appUser;
+    return user;
   }
 
   public User whoami(HttpServletRequest req) {

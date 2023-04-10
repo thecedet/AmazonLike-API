@@ -16,6 +16,6 @@ public class UserResponse {
   @ApiModelProperty(position = 2)
   private String email;
   @ApiModelProperty(position = 3)
-  List<Role> appUserRoles;
+  List<Role> roles;
 
 }
