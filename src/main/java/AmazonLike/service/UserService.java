@@ -26,6 +26,8 @@ public class UserService {
   private final AuthenticationManager authenticationManager;
 
   public String signin(String username, String password) {
+    if(username == null) throw new CustomException("Paramètre `username` manquant", HttpStatus.BAD_REQUEST);
+    if(password == null) throw new CustomException("Paramètre `password` manquant", HttpStatus.BAD_REQUEST);
     try {
       authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
       return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());

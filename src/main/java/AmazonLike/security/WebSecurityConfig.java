@@ -29,6 +29,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http.authorizeRequests()
         .antMatchers(HttpMethod.POST, "/users/signin").permitAll()
         .antMatchers(HttpMethod.POST, "/users/signup").permitAll()
+        .antMatchers(HttpMethod.GET, "/products").permitAll()
+        .antMatchers(HttpMethod.GET, "/products/*").permitAll()
         .anyRequest().authenticated();
     http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
   }
