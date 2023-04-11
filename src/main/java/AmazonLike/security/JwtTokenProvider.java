@@ -79,7 +79,8 @@ public class JwtTokenProvider {
       Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
       return true;
     }catch(Exception e) {
-      throw new CustomException("Pas d'autorisation", HttpStatus.UNAUTHORIZED);
+      return false;
+      //throw new CustomException("Pas d'autorisation", HttpStatus.UNAUTHORIZED);
     }
   }
 

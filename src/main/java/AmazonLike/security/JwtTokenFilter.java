@@ -32,7 +32,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(auth);
       }
     }catch(Error e) {
-      throw new CustomException("Pas d'autorisation", HttpStatus.UNAUTHORIZED);
+      //throw new CustomException("Pas d'autorisation", HttpStatus.UNAUTHORIZED);
     }
 
     filterChain.doFilter(httpServletRequest, httpServletResponse);
