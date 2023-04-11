@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import AmazonLike.model.Category;
 import AmazonLike.model.Product;
 import AmazonLike.payload.ProductsResponse;
 import AmazonLike.repository.ProductRepository;
@@ -58,4 +59,8 @@ public class ProductController {
         return productService.update(id, product);
     }
 
+    @GetMapping("/categories")
+    public Category[] getCategories() {
+        return Category.values();
+    }
 }
