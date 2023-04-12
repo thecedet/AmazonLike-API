@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import AmazonLike.model.Role;
 import AmazonLike.model.User;
 import AmazonLike.payload.UserLoginRequest;
 import AmazonLike.payload.UserSignup;
@@ -41,6 +42,12 @@ public class UserController {
   @PostMapping("/signup")
   public String signup(@RequestBody UserSignup user) {
     return userService.signup(modelMapper.map(user, User.class));
+  }
+  
+  @GetMapping("/roles")
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  public Role[] getAllRoles() {
+    return Role.values();
   }
 
   @GetMapping("")

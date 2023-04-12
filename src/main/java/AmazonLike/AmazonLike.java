@@ -42,7 +42,7 @@ public class AmazonLike implements CommandLineRunner {
     admin.setEmail("admin@email.com");
     admin.setFirstName("admin");
     admin.setLastName("admin");
-    admin.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_ADMIN, Role.ROLE_CLIENT)));
+    admin.setRoles(new ArrayList<Role>(Arrays.asList(Role.ROLE_ADMIN)));
 
     userService.signup(admin);
 
