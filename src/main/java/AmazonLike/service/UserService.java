@@ -1,6 +1,7 @@
 package AmazonLike.service;
 
 import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -62,6 +63,10 @@ public class UserService {
 
   public void delete(String username) {
     userRepository.deleteByUsername(username);
+  }
+
+  public List<User> getAll() {
+    return userRepository.findAll();
   }
 
   public User search(String username) {

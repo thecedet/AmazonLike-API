@@ -1,5 +1,8 @@
 package AmazonLike.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.servlet.http.HttpServletRequest;
 
 import lombok.RequiredArgsConstructor;
@@ -38,6 +41,15 @@ public class UserController {
   @PostMapping("/signup")
   public String signup(@RequestBody UserSignup user) {
     return userService.signup(modelMapper.map(user, User.class));
+  }
+
+  @GetMapping("")
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  public List<UserResponse> getAll() {
+    return userService.getAll()
+    .stream().map(user -> 
+      modelMapper.map(user, UserResponse.class)
+    ).collect(Collectors.toList());
   }
 
   @DeleteMapping(value = "/{username}")
