@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -83,5 +84,12 @@ public class UserController {
   public String refresh(HttpServletRequest req) {
     return userService.refresh(req.getRemoteUser());
   }
+
+  @PutMapping("/update/{username}")
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+  public UserResponse update(@PathVariable String username, @RequestBody UserResponse data) {
+    return modelMapper.map(userService.update(username, data), UserResponse.class);
+  }
+
 
 }

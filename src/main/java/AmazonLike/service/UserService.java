@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import AmazonLike.exception.CustomException;
 import AmazonLike.model.Role;
 import AmazonLike.model.User;
+import AmazonLike.payload.UserResponse;
 import AmazonLike.repository.UserRepository;
 import AmazonLike.security.JwtTokenProvider;
 
@@ -74,6 +75,19 @@ public class UserService {
     if(user == null) {
       throw new CustomException("Utilisateur introuvable", HttpStatus.NOT_FOUND);
     }
+    return user;
+  }
+
+  public User update(String username, UserResponse data) {
+    User user = this.search(username);
+    user.setUsername(data.getUsername());
+    user.setEmail(data.getEmail());
+    user.setFirstName(data.getFirstName());
+    user.setLastName(data.getLastName());
+    user.setRoles(data.getRoles());
+    
+    userRepository.save(user);
+
     return user;
   }
 

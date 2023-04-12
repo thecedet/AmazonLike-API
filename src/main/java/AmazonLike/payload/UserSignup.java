@@ -14,11 +14,4 @@ public class UserSignup {
   private String email;
   @ApiModelProperty(position = 2)
   private String password;
-
-  public UserSignup(String username, String email, String password) {
-    this.username = username;
-    this.email = email;
-    this.password = password;
-  }
-
 }
