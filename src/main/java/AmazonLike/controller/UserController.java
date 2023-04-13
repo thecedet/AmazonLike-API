@@ -85,6 +85,12 @@ public class UserController {
     return modelMapper.map(userService.updateMe(req, data), UserResponse.class);
   }
 
+  @PutMapping(value = "/update/me/password")
+  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
+  public UserResponse updateMe(HttpServletRequest req, @RequestBody String password) {
+    return modelMapper.map(userService.updateMePassword(req, password), UserResponse.class);
+  }
+
   @GetMapping("/refresh")
   @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
   public String refresh(HttpServletRequest req) {

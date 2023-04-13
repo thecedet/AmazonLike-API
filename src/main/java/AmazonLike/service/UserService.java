@@ -109,6 +109,12 @@ public class UserService {
 
   }
 
+  public User updateMePassword(HttpServletRequest req, String password) {
+    User user = this.whoami(req);
+    user.setPassword(passwordEncoder.encode(password));
+    return user;
+  }
+
   public String refresh(String username) {
     return jwtTokenProvider.createToken(username, userRepository.findByUsername(username).getRoles());
   }
