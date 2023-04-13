@@ -18,6 +18,7 @@ import AmazonLike.exception.CustomException;
 import AmazonLike.model.Role;
 import AmazonLike.model.User;
 import AmazonLike.payload.UserResponse;
+import AmazonLike.payload.UserSignup;
 import AmazonLike.repository.UserRepository;
 import AmazonLike.security.JwtTokenProvider;
 
@@ -93,6 +94,19 @@ public class UserService {
 
   public User whoami(HttpServletRequest req) {
     return userRepository.findByUsername(jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(req)));
+  }
+
+  public User updateMe(HttpServletRequest req, UserSignup data) {
+    User user = this.whoami(req);
+    user.setUsername(data.getUsername());
+    user.setEmail(data.getEmail());
+    user.setFirstName(data.getFirstName());
+    user.setLastName(data.getLastName());
+
+    userRepository.save(user);
+
+    return user;
+
   }
 
   public String refresh(String username) {

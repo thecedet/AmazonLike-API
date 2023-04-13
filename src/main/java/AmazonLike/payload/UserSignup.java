@@ -14,4 +14,6 @@ public class UserSignup {
   private String email;
   @ApiModelProperty(position = 2)
   private String password;
+  private String lastName;
+  private String firstName;
 }
