@@ -56,8 +56,8 @@ public class ProductController {
     
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Product update(@PathVariable Integer id, @RequestBody Product product) {
-        return productService.update(id, product);
+    public Product update(@PathVariable String id, @RequestBody Product product) {
+        return productService.update(Integer.parseInt(id), product);
     }
 
     @GetMapping("/categories")
