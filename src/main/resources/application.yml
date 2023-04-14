@@ -17,6 +17,6 @@ server:
 security:
   jwt:
     token:
-      secret-key: secret-key
+      secret-key: gautier
       expire-length: 300000
       
