@@ -52,7 +52,8 @@ $ mvn spring-boot:run
 |GET|/me|no|yes|
 |GET|/refresh|no|yes|
 |PUT|/update/{username}| - (String) username <br> - (String) email <br> - (String) lastName <br> - (String) fristName <br> - (List Role)|ROLE_ADMIN|
-|PUT|/update/me|- (String) username <br> - (String) email <br> - (String) lastName <br> - (String) fristName <br> - (List Role) <br> - (String) password|yes|
+|PUT|/update/me|- (String) username <br> - (String) email <br> - (String) lastName <br> - (String) fristName <br> - (List Role)|yes|
+|PUT|/update/me/password| - (String) password | yes|
 
  ## Produits : /products
 
